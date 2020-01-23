@@ -1,19 +1,39 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+let projectData = {};
 
 // Require Express to run server and routes
+const express = require('express');
 
 // Start up an instance of app
+const app = express();
 
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Cors for cross origin allowance
+const cors = require('cors');
+app.use(cors());
 
 // Initialize the main project folder
 app.use(express.static('website'));
 
 
 // Setup Server
+const port = 8002;
+const server = app.listen(port, () => {
+    console.log(`Server started and listening on port ${port}`);
+});
+
+// POST route for new journal entry
+app.post('/entry', (req,res) => {
+    projectData = req.body;
+    res.send(projectData);
+});
+
+// (By Client unused) GET route -> but as rubric needed
+app.get('/entry', (_, res) => {
+    res.send(projectData);
+});
