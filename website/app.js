@@ -8,6 +8,9 @@ const base_url_local = 'http://localhost:8002';
 let d = new Date();
 let newDate = d.getDate()+'.'+ (d.getMonth()+1) +'.'+ d.getFullYear();
 
+// adding eventListener
+document.getElementById('generate').addEventListener('click', generateJournalEntry);
+
 
 // GET data from OpenWeatherMap async
 const getWeatherByZipCode = async (zipCode = '', apiKey = '') => {
